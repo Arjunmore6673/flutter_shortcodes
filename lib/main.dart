@@ -1,5 +1,10 @@
+import 'package:drawer/screens/first.dart';
+import 'package:drawer/screens/second.dart';
 import 'package:drawer/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import 'screens/homePage.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,47 +26,18 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: "flutter theme demo",
-      home: MyHomePage(),
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,
       themeMode: currentTheme.currentTheme,
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Flutter theme",
-          style: TextStyle(color: Theme.of(context).accentColor),
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {
-              currentTheme.toggleTheme();
-            },
-            icon: Icon(Icons.brightness_4_rounded),
-          ),
-        ],
-      ),
-      body: Center(
-        child: Column(
-          children: [Text("helo")],
-        ),
-      ),
+      getPages: [
+        GetPage(name: "/home", page: () => MyHomePage()),
+        GetPage(name: "/first", page: () => First()),
+        GetPage(name: "/second", page: () => Second()),
+      ],
+      initialRoute: '/home',
     );
   }
 }
